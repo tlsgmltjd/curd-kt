@@ -1,6 +1,8 @@
 package com.github.crudkt.domain.feed.controller
 
+import com.github.crudkt.domain.feed.controller.dto.LoadFeedResponse
 import com.github.crudkt.domain.feed.controller.dto.SaveFeedRequest
+import com.github.crudkt.domain.feed.service.LoadFeedService
 import com.github.crudkt.domain.feed.service.SaveFeedService
 import org.springframework.http.HttpStatus.*
 import org.springframework.http.ResponseEntity
@@ -13,12 +15,18 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/feeds")
 class FeedController(
-    private val saveFeedService: SaveFeedService
+    private val saveFeedService: SaveFeedService,
+    private val loadFeedService: LoadFeedService
 ) {
 
     @PostMapping
     fun saveFeed(@RequestBody dto: SaveFeedRequest): ResponseEntity<Void> {
         saveFeedService.execute(dto);
         return ResponseEntity.status(CREATED).build();
+    }
+
+    @GetMapping
+    fun loadFeed(): ResponseEntity<List<LoadFeedResponse>> {
+        return ResponseEntity.ok(loadFeedService.execute());
     }
 }
