@@ -4,11 +4,13 @@ import com.github.crudkt.domain.feed.controller.dto.LoadFeedResponse
 import com.github.crudkt.domain.feed.controller.dto.SaveFeedRequest
 import com.github.crudkt.domain.feed.controller.dto.UpdateFeedRequest
 import com.github.crudkt.domain.feed.controller.dto.UpdateFeedResponse
+import com.github.crudkt.domain.feed.service.DeleteFeedService
 import com.github.crudkt.domain.feed.service.LoadFeedService
 import com.github.crudkt.domain.feed.service.SaveFeedService
 import com.github.crudkt.domain.feed.service.UpdateFeedService
 import org.springframework.http.HttpStatus.*
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,7 +24,8 @@ import org.springframework.web.bind.annotation.RestController
 class FeedController(
     private val saveFeedService: SaveFeedService,
     private val loadFeedService: LoadFeedService,
-    private val updateFeedService: UpdateFeedService
+    private val updateFeedService: UpdateFeedService,
+    private val deleteFeedService: DeleteFeedService
 ) {
 
     @PostMapping
@@ -40,5 +43,11 @@ class FeedController(
     fun updateFeed(@PathVariable("feedId") feedId: Long,
                    @RequestBody dto: UpdateFeedRequest): ResponseEntity<UpdateFeedResponse> {
         return ResponseEntity.ok(updateFeedService.execute(feedId, dto))
+    }
+
+    @DeleteMapping("/{feedId}")
+    fun deleteFeed(@PathVariable("feedId") feedId: Long): ResponseEntity<Void> {
+        deleteFeedService.execute(feedId)
+        return ResponseEntity.ok().build()
     }
 }
