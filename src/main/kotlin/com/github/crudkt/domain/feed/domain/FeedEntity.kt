@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-data class FeedEntity (
+class FeedEntity (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val feedId: Long = 0,
     var title: String,
