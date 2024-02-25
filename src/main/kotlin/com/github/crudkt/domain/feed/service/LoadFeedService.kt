@@ -13,7 +13,6 @@ class LoadFeedService(
     fun execute(): List<LoadFeedResponse> = feedJpaRepository.findAll()
             .map { feed -> LoadFeedResponse(
                 id = feed.feedId,
-                title = feed.title,
-                content = feed.content
+                title = feed.title
             ) };
 }
