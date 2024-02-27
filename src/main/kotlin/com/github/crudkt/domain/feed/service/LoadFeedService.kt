@@ -11,8 +11,5 @@ class LoadFeedService(
     private val feedJpaRepository: FeedJpaRepository
 ) {
     fun execute(): List<LoadFeedResponse> = feedJpaRepository.findAll()
-            .map { feed -> LoadFeedResponse(
-                id = feed.feedId,
-                title = feed.title
-            ) };
+            .map { LoadFeedResponse(id = it.feedId, title = it.title) };
 }
