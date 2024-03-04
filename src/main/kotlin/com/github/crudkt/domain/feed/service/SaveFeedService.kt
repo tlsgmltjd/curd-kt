@@ -9,11 +9,12 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-@Transactional
 class SaveFeedService(
     private val feedJpaRepository: FeedJpaRepository,
     private val publisher: ApplicationEventPublisher
 ) {
+
+    @Transactional
     fun execute(dto: SaveFeedRequest) {
          val feedEntity = FeedEntity(
              title = dto.title,
@@ -23,9 +24,12 @@ class SaveFeedService(
         val savedFeedEntity = feedJpaRepository.save(feedEntity)
 
         publish(savedFeedEntity);
+
+        throw RuntimeException()
     }
 
     private fun publish(savedFeedEntity: FeedEntity) {
         publisher.publishEvent(TicketEvent(savedFeedEntity))
+
     }
 }

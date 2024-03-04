@@ -5,6 +5,8 @@ import com.github.crudkt.domain.ticket.repository.TicketJpaRepository
 import lombok.RequiredArgsConstructor
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
 @RequiredArgsConstructor
@@ -12,8 +14,15 @@ class TicketEventListener (
     private val ticketJpaRepository: TicketJpaRepository
 ) {
 
-    @EventListener
+    // TransactionalEventListener 부분 테스트 +
+
+    @TransactionalEventListener
     fun listen(event: TicketEvent) {
+        saveTicket(event);
+    }
+
+    @Transactional
+    fun saveTicket(event: TicketEvent) {
         val ticket = TicketEntity(
             ticketContent = "짠",
             feed = event.feed
