@@ -1,17 +1,24 @@
 package com.github.crudkt.domain.ticket.event
 
+import com.github.crudkt.domain.ticket.domain.TicketEntity
+import com.github.crudkt.domain.ticket.repository.TicketJpaRepository
 import lombok.RequiredArgsConstructor
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Service
 
 @Component
 @RequiredArgsConstructor
-class TicketEventListener {
+class TicketEventListener (
+    private val ticketJpaRepository: TicketJpaRepository
+) {
 
     @EventListener
-    fun listen() {
+    fun listen(event: TicketEvent) {
+        val ticket = TicketEntity(
+            ticketContent = "짠",
+            feed = event.feed
+        );
 
+        ticketJpaRepository.save(ticket);
     }
-
 }

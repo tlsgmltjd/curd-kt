@@ -13,9 +13,7 @@ class FeedEntity (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val feedId: Long = 0,
     var title: String,
-    var content: String,
-    @OneToOne(mappedBy = "feed")
-    val ticket: TicketEntity
+    var content: String
 ) {
     fun updateFeed(dto: UpdateFeedRequest) {
         this.title = dto.title

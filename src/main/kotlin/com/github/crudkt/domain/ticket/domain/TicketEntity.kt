@@ -10,7 +10,7 @@ import jakarta.persistence.OneToOne
 @Entity
 class TicketEntity (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val ticketId: Long,
+    val ticketId: Long = 0,
     val ticketContent: String,
     @OneToOne
     val feed: FeedEntity
