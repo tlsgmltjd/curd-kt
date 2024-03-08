@@ -3,7 +3,6 @@ package com.github.crudkt.domain.ticket.event
 import com.github.crudkt.domain.ticket.domain.TicketEntity
 import com.github.crudkt.domain.ticket.repository.TicketJpaRepository
 import lombok.RequiredArgsConstructor
-import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.event.TransactionalEventListener
@@ -17,7 +16,7 @@ class TicketEventListener (
     // TransactionalEventListener 부분 테스트 +
 
     @TransactionalEventListener
-    fun listen(event: TicketEvent) {
+    fun eventListen(event: TicketEvent) {
         saveTicket(event);
     }
 
