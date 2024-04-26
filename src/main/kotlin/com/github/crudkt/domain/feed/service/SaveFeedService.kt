@@ -24,8 +24,6 @@ class SaveFeedService(
         val savedFeedEntity = feedJpaRepository.save(feedEntity)
 
         eventPublish(savedFeedEntity);
-
-        throw RuntimeException()
     }
 
     private fun eventPublish(savedFeedEntity: FeedEntity) {
