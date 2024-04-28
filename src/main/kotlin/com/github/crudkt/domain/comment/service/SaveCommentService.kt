@@ -11,12 +11,12 @@ class SaveCommentService (
     private val commentJpaRepository: CommentJpaRepository,
     private val feedJpaRepository: FeedJpaRepository
 ) {
-    fun execute(saveCommentRequest: SaveCommentRequest) {
+    fun execute(dto: SaveCommentRequest, feedId: Long) {
         commentJpaRepository.save(
             Comment(
-                comment = saveCommentRequest.comment,
-                feed = feedJpaRepository.findByFeedId(saveCommentRequest.feedId)
-                    ?: throw RuntimeException()
+                comment = dto.comment,
+                feed = (feedJpaRepository.findByFeedId(feedId)
+                    ?: throw RuntimeException())
             )
         )
     }
