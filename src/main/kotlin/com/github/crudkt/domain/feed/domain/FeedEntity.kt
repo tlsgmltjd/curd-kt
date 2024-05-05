@@ -16,13 +16,8 @@ import lombok.Builder
 class FeedEntity (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val feedId: Long = 0,
-    var title: String,
-    var content: String,
+    val title: String,
+    val content: String,
     @OneToMany(mappedBy = "feed", cascade = [CascadeType.ALL])
     val comments: MutableList<Comment> = ArrayList()
-) {
-    fun updateFeed(dto: UpdateFeedRequest) {
-        this.title = dto.title
-        this.content = dto.content
-    }
-}
+)
